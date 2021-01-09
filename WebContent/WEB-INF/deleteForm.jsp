@@ -3,10 +3,13 @@
 <%@ page import = "com.javaex.vo.GuestVo" %>
 
 <%
-	GuestVo guestVo = (GuestVo)request.getAttribute("dList");
+	//GuestVo guestVo = (GuestVo)request.getAttribute("dList");
+	//no만 있으면 되기 때문에..
+	
+	int no = Integer.parseInt(request.getParameter("no"));
 	
 	System.out.println("===deleteForm===");
-	System.out.println(guestVo);
+	
 %>
 
 <!DOCTYPE html>
@@ -20,7 +23,7 @@
 			비밀번호 : <input type = "text" name="password">
 			<button type="submit">확인</button>
 			
-			<input type="hidden" name="no" value="<%=guestVo.getNo()%>">	
+			<input type="hidden" name="no" value="<%=no%>">	
 			<input type="hidden" name="action" value="delete">	
 		</form>
 		<br>
