@@ -24,6 +24,7 @@ public class GuestController extends HttpServlet {
 		String action = request.getParameter("action");
 		System.out.println(action);
 		
+		/*
 		//action은 문자열
 		if("list".equals(action)) {
 				System.out.println("리스트");
@@ -36,22 +37,23 @@ public class GuestController extends HttpServlet {
 				//데이터 전달
 				request.setAttribute("gList", guestList);
 				
-				/* 포워드 */
+				/* 포워드 *
 				//RequestDispatcher rd = request.getRequestDispatcher("./WEB-INF/guestList.jsp"); 
 				//rd.forward(request, response);
 				
 				WebUtil.forward(request, response,"./WEB-INF/guestList.jsp");
 				
-				/*
+				
 				TIP: 복잡한 포워드를 WebUtil로 정리한다.
 				WebUtil wu = new WebUtil(); //alt + shift + o로 메모리에 올리기. 다른 패키지에 있어서 import해주어야 한다.
 				wu.forward(); //가로 안에 문자열 "./WEB-INF/guestList.jsp"로 넣어준다.
 				
 				WebUtil.forward(request, response, path); //forward 정리 방식
 				WebUtil.redirect(request, response, url);  //redirect 정리 방식
-				*/
+				
+		*/
 											
-		} else if("insert".equals(action)) {
+		 if("insert".equals(action)) {
 				System.out.println("등록");
 			
 				String name = request.getParameter("name");
@@ -102,6 +104,22 @@ public class GuestController extends HttpServlet {
 				//rd.forward(request, response);
 				
 				WebUtil.forward(request, response, "./WEB-INF/deleteForm.jsp");
+				
+		} else {
+			
+			//리스트 출력 처리
+			GuestDao guestDao = new GuestDao();
+			
+			List<GuestVo> guestList = guestDao.ListAllGuest(); //select no, name, password, content, reg_date  from guestbook
+			
+			//데이터 전달
+			request.setAttribute("gList", guestList);
+			
+			/* 포워드 */
+			//RequestDispatcher rd = request.getRequestDispatcher("./WEB-INF/guestList.jsp"); 
+			//rd.forward(request, response);
+			
+			WebUtil.forward(request, response,"./WEB-INF/guestList.jsp");
 		}
 
 	}
