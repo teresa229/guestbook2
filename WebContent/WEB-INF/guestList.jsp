@@ -1,13 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ page import = "java.util.List" %>
 <%@ page import = "com.javaex.vo.GuestVo" %>
 
+<%--
 <% 
 	List<GuestVo> guestList = (List<GuestVo>)request.getAttribute("gList");
 	
 	System.out.println("===guestlist===");
 %>
+--%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,19 +38,20 @@
 			<input type="hidden" name="action" value="insert">
 		</form>
 				
-		<%for(int i = 0; i < guestList.size(); i++) {%>
+		<!-- for(int i = 0; i < guestList.size(); i++) -->
+		<c:forEach items="${requestScope.gList}" var="guestList">
 		<br>
 			<table border ="1">
 				<tr>
-					<td><%=guestList.get(i).getNo() %></td>
-					<td><%=guestList.get(i).getName() %></td>
-					<td><%=guestList.get(i).getRegDate() %></td>
-					<td><a href="/guestbook2/gctrl?action=deleteForm&no=<%=guestList.get(i).getNo()%>">삭제</a></td>
+					<td>${guestList.no}</td>              <!-- guestList.get(i).getNo() --> 
+					<td>${guestList.name}</td>            <!-- guestList.get(i).getName() -->
+					<td>${guestList.regDate}</td>         <!-- guestList.get(i).getRegDate() -->
+					<td><a href="/guestbook2/gctrl?action=deleteForm&no=${guestList.no}">삭제</a></td>   <!-- guestList.get(i).getNo() -->
 				</tr>
 				<tr>
-					<td colspan = "4"><%=guestList.get(i).getContent() %></td>
+					<td colspan = "4">${guestList.content}</td>      <!-- guestList.get(i).getContent() -->
 				</tr>
 			</table>
-	    <%} %>
+		</c:forEach>
 </body>
 </html>
